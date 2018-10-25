@@ -3,9 +3,11 @@
 ###### The following snippet will be appended to ~/.zshrc or ~/.bashrc ########
 
 declare -A directory_stacks
+declare -A access_time
 
 # Push the home as the initial directory
 directory_stacks=( [~]=0 )
+access_time=( [~]=$(date +%s) )
 
 function push_if_success() {
    # The $1 represents the execute status of `cd` or `pushd`
@@ -22,13 +24,15 @@ function push_if_success() {
       else
          let directory_stacks[$cwd]++
       fi
+
+      access_time[$cwd]=$(date +%s)
   fi
 }
 
 function generate_directories() {
-   # Data form: dirname#frequency
+    # Data form: dirname#frequency@accesstime
    for key in "${!directory_stacks[@]}"; do
-      echo "$key#${directory_stacks[$key]}";
+      echo "$key#${directory_stacks[$key]}@${access_time[$key]}";
    done
 }
 
