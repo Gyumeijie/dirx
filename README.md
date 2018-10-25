@@ -12,6 +12,7 @@ $ cd dirx
 $ npm install
 $ ./install.sh
 ```
+> If `dirx not found`, please try to reopen a new terminal.
 
 # Usage
 ```bash
