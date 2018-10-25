@@ -26,7 +26,11 @@ function push_if_success() {
       fi
 
       access_time[$cwd]=$(date +%s)
-  fi
+   else
+      # Fix error message. @exmaple: cd 0
+      # 'cd_interceptor:cd:1: no such file or directory: 0' to 'cd:1: no such file or directory: 0'
+      sed 's/^.*_interceptor:\([a-z]\+\):[0-9]\+:\(.*\)$/\1:\2/' <<<$(cat ~/.dirx_stderr) >/dev/stderr
+   fi
 }
 
 function generate_directories() {
@@ -38,7 +42,7 @@ function generate_directories() {
 }
 
 function cd_interceptor() {
-  cd $1
+  cd $1 2>~/.dirx_stderr
   # If success then added it to directory_stacks, for $1 may
   # be a invalid value.
   push_if_success "$?"
@@ -46,14 +50,14 @@ function cd_interceptor() {
 alias cd="cd_interceptor"
 
 function dirx {
-  /home/nick/dirx/index.js $(generate_directories) 2>~/.dirsrc
-  dir=$(cat ~/.dirsrc)
+  /home/nick/dirx/index.js $(generate_directories) 2>~/.dirx_stderr
+  dir=$(cat ~/.dirx_stderr)
   cd $dir
 }
 alias dirx="dirx"
 
 function pushd_interceptor() {
-  pushd $1
+  pushd $1 2>~/.dirx_stderr 
   # If success then added it to directory_stacks, for $1 may
   # be a invalid value.
   push_if_success "$?"
