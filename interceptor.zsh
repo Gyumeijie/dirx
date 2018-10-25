@@ -70,4 +70,6 @@ function pushd_interceptor() {
 }
 alias pushd="pushd_interceptor"
 
+trap 'echo -n "\x1B[?25h"' INT
+
 ###############################################################################
