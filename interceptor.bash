@@ -45,7 +45,7 @@ function cd_interceptor() {
 alias cd="cd_interceptor"
 
 function dirx {
-  node /tmp/test_inquirer/index.js $(generate_directories) 2>~/.dirsrc
+  /home/nick/dirx/index.js $(generate_directories) 2>~/.dirsrc
   dir=$(cat ~/.dirsrc)
   cd $dir
 }
@@ -58,4 +58,5 @@ function pushd_interceptor() {
   push_if_success "$?"
 }
 alias pushd="pushd_interceptor"
+
 ###############################################################################

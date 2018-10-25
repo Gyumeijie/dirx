@@ -2,9 +2,11 @@
 
 'use strict';
 var inquirer = require('inquirer');
+var config = require('./config.json');
+
 var args = process.argv;
 var dirs = args.slice(2);
-var defalutStrategy = 'frequency';
+var defalutStrategy = config.defalutStrategy;
 
 dirs = dirs.map(function (element) {
    var parts = element.split(/#|@/);
