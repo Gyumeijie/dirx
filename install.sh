@@ -10,10 +10,10 @@ if [ $? = 0 ]; then
    sed -i "s:{INSTALL_PATH}:$PWD:" interceptor.sh
 
    if [ -f ~/.zshrc ]; then
-      cat ./interceptor.sh >> ~/.zshrc
+      cat ./interceptor.bash >> ~/.zshrc
    fi
 
    if [ -f ~/.bashrc ]; then
-      cat ./interceptor.sh >> ~/.bashrc
+      cat ./interceptor.zsh >> ~/.bashrc
    fi
 fi
