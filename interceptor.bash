@@ -52,7 +52,7 @@ function dirx {
   # Hide cursor
   echo -n '\x1B[?25l'
 
-  /home/nick/dirx/index.js $(generate_directories) 2>~/.dirx_stderr
+  {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx_stderr
   dir=$(cat ~/.dirx_stderr)
   cd $dir
 
