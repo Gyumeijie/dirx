@@ -1,5 +1,16 @@
 #! /bin/bash
 
+bin_path=$(which dirx-cli)
+if [ $? = 0 ]; then
+  # Install through The npm  way
+  script_path=$(dirname $(readlink -f $bin_path))
+else 
+  # Install through The git clone way
+  script_path=$PWD
+fi
+
+pushd $script_path >&/dev/null
+
 function printUsage() {
    echo 'Usage:' 
    echo '      dirx-cli install'
@@ -20,11 +31,11 @@ elif [ "$1" = "install" ]; then
       sed -i "s:{INSTALL_PATH}:$PWD:" interceptor.zsh
 
       if [ -f ~/.zshrc ]; then
-         cat ./interceptor.zsh >> ~/.zshrc
+         cat interceptor.zsh >> ~/.zshrc
       fi
 
       if [ -f ~/.bashrc ]; then
-         cat ./interceptor.bash >> ~/.bashrc
+         cat interceptor.bash >> ~/.bashrc
       fi
    fi
 elif [[ "$1" = "set-strategy" && ("$2" = "frequency" || $2 = "accessTime" ) ]]; then
@@ -33,3 +44,5 @@ elif [[ "$1" = "set-strategy" && ("$2" = "frequency" || $2 = "accessTime" ) ]]; 
 else
    printUsage
 fi 
+
+popd >&/dev/null
