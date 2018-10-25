@@ -1,0 +1,41 @@
+{
+  "name": "dirx",
+  "version": "1.0.0",
+  "description": "select a directory interactively and change into it",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "dirx-install": "install.sh"
+  },
+  "author": "Gyumeijie",
+  "license": "MIT",
+  "dependencies": {
+    "inquirer": "^6.2.0"
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gyumeijie/dirx.git"
+  },
+  "keywords": [
+    "dirx",
+    "dirs",
+    "popd",
+    "pushd",
+    "cd",
+    "select",
+    "directory",
+    "change",
+    "directory",
+    "cli",
+    "command-line",
+    "tool",
+    "productivity"
+  ],
+  "bugs": {
+    "url": "https://github.com/Gyumeijie/dirx/issues"
+  },
+  "homepage": "https://github.com/Gyumeijie/dirx#readme"
+}
