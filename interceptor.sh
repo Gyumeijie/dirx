@@ -9,12 +9,18 @@ directory_stacks=( [~]=0 )
 
 function push_if_success() {
    # The $1 represents the execute status of `cd` or `pushd`
-   # And the $2 is the directory being changed into
+
+   # We should use absolute path for later use. @example: there is a diretory 
+   # called `example` in `/home/nick`, given we are in `/home/nick` and  use `cd`
+   # to change into `example`, then the argument passed in is `exmaple`, we cannot 
+   # use it, we need get the absulote one, that is where comes in the 'cwd'.
+   local cwd=$PWD
+   
    if [ $1 = 0 ]; then
-      if [ "${directory_stacks[$2]}" = "" ]; then
-         directory_stacks+=( [$2]=0 )
+      if [ "${directory_stacks[$cwd]}" = "" ]; then
+         directory_stacks+=( [$cwd]=0 )
       else
-         let directory_stacks[$2]++
+         let directory_stacks[$cwd]++
       fi
   fi
 }
@@ -30,7 +36,7 @@ function cd_interceptor() {
   cd $1
   # If success then added it to directory_stacks, for $1 may
   # be a invalid value.
-  push_if_success "$?" "$1"
+  push_if_success "$?"
 }
 alias cd="cd_interceptor"
 
