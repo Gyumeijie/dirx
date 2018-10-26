@@ -1,6 +1,6 @@
 
 ###############################################################################
-############# The following snippet will be appended to ~/.bashrc #############
+#############           The following snippet is for bash         #############
 
 declare -A directory_stacks
 declare -A access_time

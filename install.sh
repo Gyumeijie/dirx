@@ -34,12 +34,12 @@ elif [ "$1" = "install" ]; then
       # Change {INSTALL_PATH}
       if [ -f ~/.zshrc ]; then
          sed "s:{INSTALL_PATH}:$PWD:" interceptor.zsh > ~/.dirx/interceptor.zsh
-         cat ~/.dirx/interceptor.zsh >> ~/.zshrc
+         echo 'source ~/.dirx/interceptor.zsh' >> ~/.zshrc
       fi
 
       if [ -f ~/.bashrc ]; then
          sed "s:{INSTALL_PATH}:$PWD:" interceptor.bash > ~/.dirx/interceptor.bash 
-         cat ~/.dirx/interceptor.bash  >> ~/.bashrc
+         echo 'source ~/.dirx/interceptor.bash' >> ~/.bashrc
       fi
    fi
 elif [[ "$1" = "set-strategy" && ("$2" = "frequency" || $2 = "accessTime" ) ]]; then

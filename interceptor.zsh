@@ -1,6 +1,6 @@
 
 ###############################################################################
-############ The following snippet will be appended to ~/.zshrc ###############
+############           The following snippet is for zsh         ###############
 
 declare -A directory_stacks
 declare -A access_time
