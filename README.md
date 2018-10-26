@@ -15,10 +15,21 @@ $ ./install.sh
 > If `dirx not found`, please try to reopen a new terminal.
 
 # Usage
+
+```
+$ dirx-cli
+Usage:
+      dirx-cli install | uninstall
+      dirx-cli set-strategy strategy("frequency" or "accessTime")
+      dirx -c
+```
+
+
 ```bash
 $ dirx
 ```
 ![](./dirx.png)
+
 
 # Feature
 
