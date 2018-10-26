@@ -50,14 +50,14 @@ alias cd="cd_interceptor"
 
 function dirx {
   # Hide cursor
-  echo -n '\x1B[?25l'
+  printf "\033[?25l"
 
   {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx_stderr
   dir=$(cat ~/.dirx_stderr)
   cd $dir
 
   # Show cursor
-  echo -n '\x1B[?25h'
+  printf "\033[?25h"
 }
 alias dirx="dirx"
 
@@ -69,6 +69,6 @@ function pushd_interceptor() {
 }
 alias pushd="pushd_interceptor"
 
-trap 'echo -n "\x1B[?25h"' INT
+trap 'printf "\033[?25h"' INT
 
 ###############################################################################
