@@ -56,7 +56,12 @@ function dirx {
 
     {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx/stderr
     dir=$(cat ~/.dirx/stderr)
-    cd $dir
+    
+    # For some reason, we cann't add listener for `INT` signal, so we check the value of `dir`;
+    # If it equals to "", then "CTRL + C" was pressed, we should still in current directory.　
+    if [ ! "$dir" = "" ]; then
+        cd $dir
+    fi
 
     # Show cursor
     printf "\033[?25h"
