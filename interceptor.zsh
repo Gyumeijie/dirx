@@ -50,15 +50,25 @@ function cd_interceptor() {
 alias cd="cd_interceptor"
 
 function dirx {
-  # Hide cursor
-  printf "\033[?25l"
+  if [ $# = 0 ]; then
+     # Hide cursor
+    printf "\033[?25l"
 
-  {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx/stderr
-  dir=$(cat ~/.dirx/stderr)
-  cd $dir
+    {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx/stderr
+    dir=$(cat ~/.dirx/stderr)
+    cd $dir
 
-  # Show cursor
-   printf "\033[?25h"
+    # Show cursor
+    printf "\033[?25h"
+  else 
+    if [ "$1" = "-c" ]; then
+      directory_stacks=()
+      access_time=()
+
+      directory_stacks=( $PWD 0 )
+      access_time=( $PWD $(date +%s) ) 
+    fi
+  fi
 }
 alias dirx="dirx"
 
