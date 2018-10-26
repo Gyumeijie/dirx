@@ -14,7 +14,7 @@ pushd $script_path >&/dev/null
 
 function printUsage() {
    echo 'Usage:' 
-   echo '      dirx-cli install'
+   echo '      dirx-cli install | uninstall'
    echo '      dirx-cli set-strategy strategy("frequency" or "accessTime")'
 }
 
@@ -50,6 +50,21 @@ elif [[ "$1" = "set-strategy" && ("$2" = "frequency" || $2 = "accessTime" ) ]]; 
       echo -n "$ret" > ~/.dirx/config.json
    else
       echo "Not installed dirx yet."
+   fi
+elif [[ "$1" = "uninstall" ]]; then
+   npm uninstall -g dirx
+
+   rm -rf ~/.dirx
+   
+   # Not use sed -i, for `sed command c expects \ followed by text` in MacOS
+   if [ -f ~/.zshrc ]; then
+      ret=$(sed "s:source ~/.dirx/interceptor.zsh::g" ~/.zshrc)
+      echo -e "$ret" > ~/.zshrc
+   fi 
+
+   if [ -f ~/.bashrc ]; then
+      ret=$(sed "s:source ~/.dirx/interceptor.bash::g" ~/.bashrc)
+      echo -e "$ret" > ~/.bashrc
    fi
 else
    printUsage
