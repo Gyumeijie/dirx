@@ -2,7 +2,8 @@
 
 'use strict';
 var inquirer = require('inquirer');
-var config = require('./config.json');
+var os = require('os');
+var config = require((os.homedir()+'/.dirx/config.json'));
 
 var args = process.argv;
 var dirs = args.slice(2);

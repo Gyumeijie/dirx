@@ -29,7 +29,7 @@ function push_if_success() {
    else
       # Fix error message. @exmaple: cd 0
       # 'cd_interceptor:cd:1: no such file or directory: 0' to 'cd:1: no such file or directory: 0'
-      sed 's/^.*_interceptor:\([a-z]\+\):[0-9]\+:\(.*\)$/\1:\2/' <<<$(cat ~/.dirx_stderr) >/dev/stderr
+      sed 's/^.*_interceptor:\([a-z]\+\):[0-9]\+:\(.*\)$/\1:\2/' <<<$(cat ~/.dirx/stderr) >/dev/stderr
    fi
 }
 
@@ -41,7 +41,7 @@ function generate_directories() {
 }
 
 function cd_interceptor() {
-  cd $1 2>~/.dirx_stderr
+  cd $1 2>~/.dirx/stderr
   # If success then added it to directory_stacks, for $1 may
   # be a invalid value.
   push_if_success "$?"
@@ -52,8 +52,8 @@ function dirx {
   # Hide cursor
   printf "\033[?25l"
 
-  {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx_stderr
-  dir=$(cat ~/.dirx_stderr)
+  {INSTALL_PATH}/index.js $(generate_directories) 2>~/.dirx/stderr
+  dir=$(cat ~/.dirx/stderr)
   cd $dir
 
   # Show cursor
@@ -62,7 +62,7 @@ function dirx {
 alias dirx="dirx"
 
 function pushd_interceptor() {
-  pushd $1 2>~/.dirx_stderr
+  pushd $1 2>~/.dirx/stderr
   # If success then added it to directory_stacks, for $1 may
   # be a invalid value.
   push_if_success "$?"

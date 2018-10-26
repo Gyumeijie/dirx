@@ -21,38 +21,38 @@ function printUsage() {
 if [ $# -eq 0 ]; then
    printUsage
 elif [ "$1" = "install" ]; then
-   cat config.json | grep '"installed" *: *"no"' >&/dev/null
+   if [ -f ~/.dirx/config.json ]; then
+      echo "Installed already." && exit 1
+   fi
 
-   if [ $? = 0 ]; then
-      # Use tempfile to fix macos `sed command c expects \ followed by text` 
+   if [ $? = 0 ]; then 
+      # Save all related files in ~/.dirx
+      mkdir ~/.dirx 2>/dev/null
 
-      # Test whether or not need `sudo` to run the following commands
-      touch tempfile.$$ 2>/dev/null
-      if [ $? = 1 ]; then
-         echo "Permission denied"
-         exit 1
-      fi
-      sed 's/\("installed" *\): *"no"/\1: "yes"/g' config.json > tempfile.$$
-      cat tempfile.$$ > config.json
+      sed 's/\("installed" *\): *"no"/\1: "yes"/g' config.json > ~/.dirx/config.json
     
       # Change {INSTALL_PATH}
       if [ -f ~/.zshrc ]; then
-         sed "s:{INSTALL_PATH}:$PWD:" interceptor.zsh > tempfile.$$
-         cat tempfile.$$ >> ~/.zshrc
+         sed "s:{INSTALL_PATH}:$PWD:" interceptor.zsh > ~/.dirx/interceptor.zsh
+         cat ~/.dirx/interceptor.zsh >> ~/.zshrc
       fi
 
       if [ -f ~/.bashrc ]; then
-         sed "s:{INSTALL_PATH}:$PWD:" interceptor.bash > tempfile.$$
-         cat tempfile.$$ >> ~/.bashrc
+         sed "s:{INSTALL_PATH}:$PWD:" interceptor.bash > ~/.dirx/interceptor.bash 
+         cat ~/.dirx/interceptor.bash  >> ~/.bashrc
       fi
    fi
 elif [[ "$1" = "set-strategy" && ("$2" = "frequency" || $2 = "accessTime" ) ]]; then
    # Change strategy
-   sed "s/\(\"defalutStrategy\" *\): *\"\([[:alpha:]]\+\)\"/\1: \"$2\"/g" config.json > tempfile.$$
-   cat tempfile.$$ > config.json
+   if [ -f ~/.dirx/config.json ]; then
+      # Fix `sed command c expects \ followed by text` in MacOS
+      ret=$(sed "s/\(\"defalutStrategy\" *\): *\"\([[:alpha:]]\+\)\"/\1: \"$2\"/g" ~/.dirx/config.json)
+      echo -n "$ret" > ~/.dirx/config.json
+   else
+      echo "Not installed dirx yet."
+   fi
 else
    printUsage
 fi 
 
-rm -rf tempfile.$$
 popd >&/dev/null
