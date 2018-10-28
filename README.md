@@ -33,10 +33,10 @@ $ dirx
 
 # Feature
 
-Support sorting accessed directories by `frequence` and `access time`. You can use different sorting strategy by:
+Support sorting accessed directories by `frequency` and `access time`. You can use different sorting strategy by:
 
 ```bash
-$ dirx-cli set-strategy "frequence"
+$ dirx-cli set-strategy "frequency"
 
 $ dirx-cli set-strategy "accessTime"
 ```
