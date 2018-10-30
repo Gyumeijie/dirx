@@ -16,7 +16,7 @@ function printUsage() {
    echo 'Usage:' 
    echo '      dirx-cli install | uninstall'
    echo '      dirx-cli set-strategy strategy("frequency" or "accessTime")'
-   echo '      dirx -c'
+   echo '      dirx|d -c'
 }
 
 if [ $# -eq 0 ]; then

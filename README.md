@@ -21,7 +21,7 @@ $ dirx-cli
 Usage:
       dirx-cli install | uninstall
       dirx-cli set-strategy strategy("frequency" or "accessTime")
-      dirx -c
+      dirx|d -c 
 ```
 
 

@@ -75,6 +75,7 @@ function dirx {
   fi
 }
 alias dirx="dirx"
+alias d="dirx"
 
 function pushd_interceptor() {
   pushd $1 2>~/.dirx/stderr
